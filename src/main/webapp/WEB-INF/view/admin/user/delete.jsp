@@ -41,7 +41,7 @@
                                                 Bạn có chắc xóa người dùng này ?
                                             </div>
                                             <form:form method="post" action="/admin/user/delete"
-                                                modelAttribute="newUser">
+                                                modelAttribute="currentUser">
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">Mã:</label>
                                                     <form:input value="${id}" type="text" class="form-control"

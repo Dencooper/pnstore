@@ -37,60 +37,32 @@
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
                                     <li class="breadcrumb-item"><a href="/admin/user">Người dùng</a></li>
-                                    <li class="breadcrumb-item active">Cập nhật</li>
+                                    <li class="breadcrumb-item active">Cập nhật ảnh đại diện</li>
                                 </ol>
                                 <div class=" mt-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Cập Nhật Người Dùng</h3>
+                                            <h3>Cập Nhật Ảnh Đại Diện</h3>
                                             <hr />
-                                            <form:form method="post" action="/admin/user/update"
-                                                modelAttribute="currentUser">
+                                            <form:form method="post" action="/admin/user/update/avatar"
+                                                modelAttribute="currentUser" enctype="multipart/form-data">
 
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">Mã:</label>
                                                     <form:input type="text" class="form-control" path="id" />
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email:</label>
-                                                    <form:input type="email" class="form-control" path="email"
-                                                        disabled="true" />
+                                                <div class="mb-3 col-12 col-md-6">
+                                                    <label for="avatarFile" class="form-label">Ảnh đại diện:</label>
+                                                    <input class="form-control" type="file" id="avatarFile"
+                                                        accept=".png, .jpg, .jpeg" name="avatarFile" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <c:set var="errorFullName">
-                                                        <form:errors path="fullName" cssClass="invalid-feedback" />
-                                                    </c:set>
-                                                    <label class="form-label">Họ tên:</label>
-                                                    <form:input type="text"
-                                                        class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
-                                                        path="fullName" />
-                                                    ${errorFullName}
+                                                <div class="col-12 mb-3">
+                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                                        id="avatarPreview" />
                                                 </div>
-                                                <div class="row">
-                                                    <div class="mb-3 col-6">
-                                                        <label class="form-label">Số điện thoại:</label>
-                                                        <form:input type="text" class="form-control" path="phone" />
-                                                    </div>
-                                                    <div class="mb-3 col-12 col-md-6">
-                                                        <label class="form-label">Vai trò:</label>
-                                                        <form:select class="form-select" path="role.name">
-                                                            <form:option value="ADMIN">ADMIN</form:option>
-                                                            <form:option value="USER">USER</form:option>
-                                                        </form:select>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Địa chỉ:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
-                                                </div>
-
                                                 <button type="submit" class="btn btn-warning">Xác nhận</button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <a href="/admin/user/update/avatar/${currentUser.id}"
-                                                        class="text-decoration-none text-white">
-                                                        Cập nhật Ảnh đại diện</a>
-                                                </button>
+
                                             </form:form>
                                         </div>
 

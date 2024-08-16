@@ -20,11 +20,11 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public User handleCreateUser(User user) {
+    public User handleSaveUser(User user) {
         return this.userRepository.save(user);
     }
 
-    public User handleFetchUserById(long id) {
+    public User fetchUserById(long id) {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isPresent()) {
             return userOptional.get();
@@ -32,21 +32,8 @@ public class UserService {
         return null;
     }
 
-    public List<User> handleFetchAllUsers() {
+    public List<User> fetchAllUsers() {
         return this.userRepository.findAll();
-    }
-
-    public User handleUpdateUser(User user) {
-        Optional<User> userOptional = this.userRepository.findById(user.getId());
-        if (userOptional.isPresent()) {
-            User updatedUser = userOptional.get();
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setFullName(user.getFullName());
-            updatedUser.setAddress(user.getAddress());
-            updatedUser.setPhone(user.getPhone());
-            updatedUser.setAvatar(user.getAvatar());
-        }
-        return null;
     }
 
     public void handleDeleteUserById(long id) {

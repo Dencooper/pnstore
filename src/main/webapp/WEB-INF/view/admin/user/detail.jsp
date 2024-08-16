@@ -33,12 +33,12 @@
                                     <div class="row">
                                         <div class="col-12 mx-auto">
                                             <div class="d-flex justify-content-between">
-                                                <h3>Xem chi tiết người dung có Mã ${id}</h3>
+                                                <h3>Xem chi tiết người dùng có Mã ${id}</h3>
                                             </div>
 
                                             <hr />
 
-                                            <div class="card" style="width: 60%">
+                                            <div class="card mx-auto" style="width: 60%">
                                                 <div class="card-header">
                                                     Thông Tin Người Dùng
                                                 </div>
@@ -48,8 +48,8 @@
                                                     <li class="list-group-item">Họ tên: ${user.fullName}</li>
                                                     <li class="list-group-item">Địa chỉ: ${user.address}</li>
                                                 </ul>
+
                                             </div>
-                                            <a href="/admin/user" class="btn btn-success mt-3">Trở lại</a>
 
                                         </div>
 
