@@ -1,6 +1,7 @@
 package com.dencooper.pnstore.domain;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class Product {
     @DecimalMin(value = "0", inclusive = false, message = "Giá phải lớn hơn 0")
     private double price;
 
-    private String image;
+    private ArrayList<String> images;
 
     @NotNull
     @NotEmpty(message = "Mô tả chi tiết không được để trống")

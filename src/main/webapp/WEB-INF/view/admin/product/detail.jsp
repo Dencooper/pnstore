@@ -57,18 +57,18 @@
                                                         <li class="list-group-item">Mục đích: ${product.target}</li>
                                                     </ul>
                                                 </div>
-                                                <div class="card" style="width: 35%;">
-                                                    <img src="/images/product/${product.image}" alt="Card Image Top"
-                                                        class="card-img-top">
-                                                </div>
                                             </div>
 
-                                            <a href="/admin/product" class="btn btn-success mt-3">Trở lại</a>
-
+                                            <div class="d-flex justify-content-around my-5">
+                                                <c:forEach var="image" items="${product.images}">
+                                                    <div class="card" style="width: 30%;">
+                                                        <img src="/images/product/${image}" alt="Card Image Top"
+                                                            class="card-img-top">
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </main>

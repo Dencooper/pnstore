@@ -15,19 +15,22 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(() => {
-                        const avatarFile = $("#avatarFile");
-                        const orgImage = "${currentProduct.image}"
-                        if (orgImage) {
-                            const urlImage = "/images/product/" + orgImage;
-                            console.log(urlImage);
-                            $("#avatarPreview").attr("src", urlImage);
-                            $("#avatarPreview").css({ "display": "block" });
+                        for (let index = 0; index < "$totalImages"; index++) {
+                            const avatarFile = $("#avatarFile" + index);
+                            const orgImage = image;
+                            if (orgImage) {
+                                const urlImage = "/images/product/" + orgImage;
+                                console.log(urlImage);
+                                $("#avatarPreview").attr("src", urlImage);
+                                $("#avatarPreview").css({ "display": "block" });
+                            }
+                            avatarFile.change(function (e) {
+                                const imgURL = URL.createObjectURL(e.target.files[0]);
+                                $("#avatarPreview").attr("src", imgURL);
+                                $("#avatarPreview").css({ "display": "block" });
+                            });
+
                         }
-                        avatarFile.change(function (e) {
-                            const imgURL = URL.createObjectURL(e.target.files[0]);
-                            $("#avatarPreview").attr("src", imgURL);
-                            $("#avatarPreview").css({ "display": "block" });
-                        });
                     });
                 </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -48,7 +51,7 @@
                                 </ol>
                                 <div class="mt-5">
                                     <div class="row">
-                                        <div class="col-md-6 col-12 mx-auto">
+                                        <div class="col-6 mx-auto">
                                             <h3>Cập Nhật Sản Phẩm</h3>
                                             <hr />
                                             <form:form method="post" action="/admin/product/update" class="row"
@@ -134,15 +137,22 @@
                                                         <form:option value="DOANH-NHAN">Doanh nhân</form:option>
                                                     </form:select>
                                                 </div>
-                                                <div class="col-12 mb-3">
-                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                                        id="avatarPreview" />
-                                                </div>
+
+
                                                 <div class="col-12 mb-5">
                                                     <button type="submit" class="btn btn-primary">Xác nhận</button>
                                                 </div>
                                             </form:form>
 
+                                        </div>
+                                        <div class="col-6 mb-3 d-flex flex-wrap">
+                                            <c:forEach varStatus="loop" begin="0" end="${totalImages - 1}">
+                                                <div class="mb-3 px-2 py-5">
+                                                    <img style="max-height: 200px;" alt="avatar preview"
+                                                        id="avatarPreview${loop.index}"
+                                                        src="/images/product/${currentProduct.images[loop.index]}" />
+                                                </div>
+                                            </c:forEach>
                                         </div>
 
                                     </div>
