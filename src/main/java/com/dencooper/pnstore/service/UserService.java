@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.Role;
 import com.dencooper.pnstore.domain.User;
+import com.dencooper.pnstore.domain.dto.RegisterDTO;
 import com.dencooper.pnstore.repository.RoleRepository;
 import com.dencooper.pnstore.repository.UserRepository;
 
@@ -42,5 +43,20 @@ public class UserService {
 
     public Role getRoleByName(String name) {
         return this.roleRepository.findByName(name);
+    }
+
+    public boolean checkExistEmail(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
+
+    public User fetchUserByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
+    public User handelResDTOToUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setEmail(registerDTO.getEmail());
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        return user;
     }
 }

@@ -2,9 +2,8 @@ package com.dencooper.pnstore.domain;
 
 import java.util.List;
 
-import com.dencooper.pnstore.utils.UniqueEmail;
+import com.dencooper.pnstore.utils.UniqueUsernameChecker;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +30,7 @@ public class User {
 
     @NotNull
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @UniqueEmail
+    @UniqueUsernameChecker
     private String email;
 
     @NotNull
