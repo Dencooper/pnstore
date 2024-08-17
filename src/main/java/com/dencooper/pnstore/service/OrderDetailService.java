@@ -1,5 +1,5 @@
 package com.dencooper.pnstore.service;
 
-public class OrderDetail {
+public class OrderDetailService {
 
 }
