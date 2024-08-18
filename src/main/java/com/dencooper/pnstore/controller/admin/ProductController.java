@@ -103,4 +103,5 @@ public class ProductController {
         this.productService.handleDeleteProductById(id);
         return "redirect:/admin/product";
     }
+
 }

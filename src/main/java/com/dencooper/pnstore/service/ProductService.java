@@ -5,15 +5,30 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.dencooper.pnstore.domain.Cart;
+import com.dencooper.pnstore.domain.CartDetail;
 import com.dencooper.pnstore.domain.Product;
+import com.dencooper.pnstore.domain.User;
+import com.dencooper.pnstore.repository.CartDetailRepository;
+import com.dencooper.pnstore.repository.CartRepository;
 import com.dencooper.pnstore.repository.ProductRepository;
+import com.dencooper.pnstore.repository.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartDetailRepository cartDetailRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(UserRepository userRepository, ProductRepository productRepository,
+            CartRepository cartRepository, CartDetailRepository cartDetailRepository) {
+        this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
+        this.cartDetailRepository = cartDetailRepository;
     }
 
     public Product handleSaveProduct(Product product) {
@@ -50,5 +65,43 @@ public class ProductService {
 
     public void handleDeleteProductById(long id) {
         this.productRepository.deleteById(id);
+    }
+
+    public Cart fetchCartByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
+
+    public void handleAddProductToCart(User user, Product product, HttpSession session, long quantity) {
+        if (user != null) {
+            Cart cart = this.cartRepository.findByUser(user);
+
+            if (cart == null) {
+                cart = new Cart();
+                cart.setUser(user);
+                cart.setSum(0);
+                this.cartRepository.save(cart);
+            }
+
+            if (product != null) {
+                CartDetail currentCartDetail = this.cartDetailRepository.findByCartAndProduct(cart, product);
+
+                if (currentCartDetail == null) {
+                    CartDetail newCartDetail = new CartDetail();
+                    newCartDetail.setCart(cart);
+                    newCartDetail.setProduct(product);
+                    newCartDetail.setQuantity(quantity);
+                    newCartDetail.setPrice(product.getPrice());
+                    this.cartDetailRepository.save(newCartDetail);
+
+                    int sum = cart.getSum() + 1;
+                    cart.setSum(sum);
+                    this.cartRepository.save(cart);
+                    session.setAttribute("sum", sum);
+                } else {
+                    currentCartDetail.setQuantity(currentCartDetail.getQuantity() + quantity);
+                    this.cartDetailRepository.save(currentCartDetail);
+                }
+            }
+        }
     }
 }
