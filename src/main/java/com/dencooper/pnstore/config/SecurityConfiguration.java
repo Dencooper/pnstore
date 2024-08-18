@@ -48,6 +48,13 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -61,7 +68,15 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(myAuthenticationSuccessHandler())
-                        .permitAll());
+                        .permitAll())
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false))
+                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
         return http.build();
     }
 
