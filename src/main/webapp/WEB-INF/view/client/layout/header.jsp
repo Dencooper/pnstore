@@ -37,13 +37,17 @@
                                     <ul class="dropdown-menu dropdown-menu-end p-4" aria-abelledby="dropdownMenuLink">
                                         <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
                                             <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                                                src="/images/avatar/${sessionScope.avatar}" />
+                                                src="${not empty sessionScope.avatar ? '/images/avatar/${sessionScope.avatar}' : '/images/avatar/avatar.jpg'}" />
                                             <div class="text-center my-3">
                                                 <c:out value="${sessionScope.fullName}" />
                                             </div>
                                         </li>
+                                        <c:if test="${roleName == 'ADMIN'}">
+                                            <li><a class="dropdown-item" href="/admin">Quản Trị Viên</a></li>
+                                        </c:if>
                                         <li><a class="dropdown-item" href="/manage-account">Quản lý tài khoản</a></li>
                                         <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
+
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

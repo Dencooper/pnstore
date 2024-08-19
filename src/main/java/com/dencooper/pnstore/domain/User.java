@@ -21,6 +21,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@UniqueUsernameChecker
 @Getter
 @Setter
 public class User {
@@ -30,7 +31,6 @@ public class User {
 
     @NotNull
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @UniqueUsernameChecker
     private String email;
 
     @NotNull

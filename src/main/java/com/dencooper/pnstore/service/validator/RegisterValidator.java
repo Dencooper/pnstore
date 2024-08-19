@@ -1,5 +1,6 @@
 package com.dencooper.pnstore.service.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.dto.RegisterDTO;
@@ -12,11 +13,8 @@ import jakarta.validation.ConstraintValidatorContext;
 @Service
 public class RegisterValidator implements ConstraintValidator<RegisterChecker, RegisterDTO> {
 
-    private final UserService userService;
-
-    public RegisterValidator(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean isValid(RegisterDTO user, ConstraintValidatorContext context) {

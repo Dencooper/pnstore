@@ -1,6 +1,7 @@
 package com.dencooper.pnstore.controller.client;
 
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -43,16 +44,29 @@ public class ShoppingController {
     public String getCartPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = this.userService.fetchUserById((long) session.getAttribute("id"));
-        Cart cart = this.productService.fetchCartByUser(user);
-        List<CartDetail> cartDetails = cart.getCartDetails();
-        double totalPrice = 0;
-        for (CartDetail cartDetail : cartDetails) {
-            totalPrice += cartDetail.getPrice() * cartDetail.getQuantity();
-        }
+        List<CartDetail> cartDetails = user.getCart() == null ? new ArrayList<CartDetail>()
+                : user.getCart().getCartDetails();
 
+        double totalPrice = 0;
+        for (CartDetail cd : cartDetails) {
+            totalPrice += cd.getPrice() * cd.getQuantity();
+        }
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
+
+        model.addAttribute("cart", user.getCart());
+
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String deleteDetailCartById(@PathVariable("id") long cartDetalId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        CartDetail cartDetail = this.productService.fetchCartDetailById(cartDetalId);
+        if (cartDetail != null) {
+            this.productService.handleDeleteCartDetail(cartDetail, session);
+        }
+        return "redirect:/";
     }
 
 }

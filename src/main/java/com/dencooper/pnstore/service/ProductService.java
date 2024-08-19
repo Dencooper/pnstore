@@ -71,6 +71,15 @@ public class ProductService {
         return this.cartRepository.findByUser(user);
     }
 
+    public CartDetail fetchCartDetailById(long id) {
+        Optional<CartDetail> cdOptional = this.cartDetailRepository.findById(id);
+        if (cdOptional.isPresent()) {
+            return cdOptional.get();
+        }
+        return null;
+
+    }
+
     public void handleAddProductToCart(User user, Product product, HttpSession session, long quantity) {
         if (user != null) {
             Cart cart = this.cartRepository.findByUser(user);
@@ -102,6 +111,23 @@ public class ProductService {
                     this.cartDetailRepository.save(currentCartDetail);
                 }
             }
+        }
+    }
+
+    public void handleDeleteCartDetail(CartDetail cartDetail, HttpSession session) {
+        Cart cart = cartDetail.getCart();
+        if (cart != null) {
+            this.cartDetailRepository.delete(cartDetail);
+            int sum = cart.getSum();
+            if (sum == 1) {
+                this.cartRepository.delete(cart);
+                session.setAttribute("sum", 0);
+            } else {
+                cart.setSum(sum - 1);
+                this.cartRepository.save(cart);
+                session.setAttribute("sum", sum - 1);
+            }
+
         }
     }
 }
