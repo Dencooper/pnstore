@@ -50,10 +50,6 @@ public class OrderService {
         return this.orderRepository.save(order);
     }
 
-    public void handelDeleteOrder(Order order) {
-        this.orderRepository.delete(order);
-    }
-
     public void handlePlaceOrder(User currentUser, HttpSession session, String receiverName, String receiverAddress,
             String receiverPhone) {
         Cart cart = currentUser.getCart();
@@ -65,7 +61,7 @@ public class OrderService {
                 order.setReceiverName(receiverName);
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
-                order.setStatus("PENDING");
+                order.setStatus("Đang xử lí");
 
                 double totalPrice = 0;
                 for (CartDetail cd : cartDetails) {

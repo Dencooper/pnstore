@@ -62,11 +62,11 @@
                                                         <div class="mb-3 col-12 col-md-5">
                                                             <label class="form-label">Trạng thái:</label>
                                                             <form:select class="form-select" path="status">
-                                                                <form:option value="PENDING">Đang xử lí</form:option>
-                                                                <form:option value="SHIPPING">Đang giao hàng
+                                                                <form:option value="Đang xử lí">Đang xử lí</form:option>
+                                                                <form:option value="Đang giao hàng">Đang giao hàng
                                                                 </form:option>
-                                                                <form:option value="COMPLETE">Hoàn thành</form:option>
-                                                                <form:option value="CANCEL">Hủy</form:option>
+                                                                <form:option value="Hoàn thành">Hoàn thành</form:option>
+                                                                <form:option value="Hủy">Hủy</form:option>
                                                             </form:select>
                                                         </div>
                                                     </div>

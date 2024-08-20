@@ -73,17 +73,4 @@ public class OrderController {
         return "redirect:/admin/order";
     }
 
-    @GetMapping("/admin/order/delete/{id}")
-    public String getDeleteOrderPage(Model model, @PathVariable long id) {
-        model.addAttribute("id", id);
-        return "admin/order/delete";
-    }
-
-    @PostMapping("/admin/order/delete")
-    public String deleteOrder(@RequestParam("id") long id) {
-        Order order = this.orderService.fetchOrderById(id);
-        this.orderService.handelDeleteOrder(order);
-        return "redirect:/admin/order";
-    }
-
 }

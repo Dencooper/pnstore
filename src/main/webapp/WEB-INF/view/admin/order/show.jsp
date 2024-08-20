@@ -38,30 +38,28 @@
                                             <table class=" table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">Mã</th>
+                                                        <th class="text-center align-middle">Mã</th>
                                                         <th>Tổng tiền</th>
                                                         <th>Người mua</th>
-                                                        <th>Trạng thái</th>
+                                                        <th class="text-center">Trạng thái</th>
                                                         <th>Hàng động</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach var="order" items="${orders}">
                                                         <tr>
-                                                            <th class="text-center">${order.id}</th>
-                                                            <td>
+                                                            <th class="text-center align-middle">${order.id}</th>
+                                                            <td class="align-middle">
                                                                 <fmt:formatNumber type="number"
                                                                     value="${order.totalPrice}" /> đ
                                                             </td>
-                                                            <td>${order.user.fullName}</td>
-                                                            <td>${order.status}</td>
+                                                            <td class="align-middle">${order.user.fullName}</td>
+                                                            <td class="text-center align-middle">${order.status}</td>
                                                             <td>
                                                                 <a href="/admin/order/${order.id}"
                                                                     class="btn btn-success">Xem</a>
                                                                 <a href="/admin/order/update/${order.id}"
                                                                     class="btn btn-warning  mx-2">Cập nhật</a>
-                                                                <a href="/admin/order/delete/${order.id}"
-                                                                    class="btn btn-danger">Xóa</a>
                                                             </td>
                                                         </tr>
 

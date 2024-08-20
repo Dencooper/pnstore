@@ -32,7 +32,7 @@
                                     <div class="row">
                                         <div class="col-12 mx-auto">
                                             <div>
-                                                <h3>Đơn hàng với mã = ${order.id}</h3>
+                                                <h3>Đơn hàng với Mã = ${order.id}</h3>
                                             </div>
 
                                             <hr />
@@ -53,7 +53,7 @@
                                                             <tr>
                                                                 <th scope="row">
                                                                     <div class="text-start">
-                                                                        <img src="/images/product/${orderDetail.product.image}"
+                                                                        <img src="/images/product/${orderDetail.product.images[0]}"
                                                                             class="img-fluid me-5"
                                                                             style="width: 80px; height: 80px; border-radius: 10px;"
                                                                             alt="">

@@ -40,23 +40,23 @@
                                             <table class=" table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Mã</th>
+                                                        <th class="text-center align-middle">Mã</th>
                                                         <th>Tên</th>
                                                         <th>Giá cả</th>
-                                                        <th>Hãng</th>
+                                                        <th class="text-center">Hãng</th>
                                                         <th>Hành động</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach var="product" items="${products}">
                                                         <tr>
-                                                            <th>${product.id}</th>
-                                                            <td>${product.name}</td>
-                                                            <td>
+                                                            <th class="text-center align-middle">${product.id}</th>
+                                                            <td class="align-middle">${product.name}</td>
+                                                            <td class="align-middle">
                                                                 <fmt:formatNumber type="number"
                                                                     value="${product.price}" /> đ
                                                             </td>
-                                                            <td>${product.factory}</td>
+                                                            <td class="text-center align-middle">${product.factory}</td>
                                                             <td>
                                                                 <a href="/admin/product/${product.id}"
                                                                     class="btn btn-success">Xem</a>
