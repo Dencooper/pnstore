@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.dencooper.pnstore.domain.User;
 import com.dencooper.pnstore.service.OrderService;
 import com.dencooper.pnstore.service.ProductService;
 import com.dencooper.pnstore.service.UserService;

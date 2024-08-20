@@ -51,18 +51,7 @@
             </head>
 
             <body>
-
-                <!-- Spinner Start -->
-                <!-- <div id="spinner"
-                    class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-                    <div class="spinner-grow text-primary" role="status"></div>
-                </div> -->
-                <!-- Spinner End -->
-
                 <jsp:include page="../layout/header.jsp" />
-
-
-                <!-- Fruits Shop Start-->
                 <div class="container-fluid fruite py-5">
                     <div class="container py-5">
                         <div class="mb-5">
@@ -263,14 +252,44 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <c:if test="${totalPages > 0}">
+                                        <div class="pagination d-flex justify-content-center mt-5">
+                                            <li class="page-item">
+                                                <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                    href="/products?page=${currentPage - 1}${queryString}"
+                                                    aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                                                <li class="page-item">
+                                                    <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                        href="/products?page=${loop.index + 1}${queryString}">
+                                                        ${loop.index + 1}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>
+                                            <li class="page-item">
+                                                <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                    href="/products?page=${currentPage + 1}${queryString}"
+                                                    aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
 
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${totalPages == 0}">
+                                        <div class="text-center">
+                                            <h2>Không tìm thấy sản phẩm phù hợp</h2>
+                                        </div>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-                <!-- Fruits Shop End-->
 
                 <jsp:include page="../layout/footer.jsp" />
 

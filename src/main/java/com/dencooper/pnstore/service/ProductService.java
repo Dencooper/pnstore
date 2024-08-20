@@ -20,14 +20,12 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ProductService {
-    private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
 
-    public ProductService(UserRepository userRepository, ProductRepository productRepository,
+    public ProductService(ProductRepository productRepository,
             CartRepository cartRepository, CartDetailRepository cartDetailRepository) {
-        this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
