@@ -1,6 +1,7 @@
 package com.dencooper.pnstore.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,24 @@ public class OrderService {
         this.cartDetailRepository = cartDetailRepository;
     }
 
+    public Order fetchOrderById(long id) {
+        Optional<Order> orderOptional = this.orderRepository.findById(id);
+        if (orderOptional.isPresent()) {
+            return orderOptional.get();
+        }
+        return null;
+    }
+
+    public Order handleSaveOrder(Order order) {
+        return this.orderRepository.save(order);
+    }
+
     public List<Order> fetchAllOrdersByUser(User user) {
         return this.orderRepository.findAllByUser(user);
+    }
+
+    public void handelDeleteOrder(Order order) {
+        this.orderRepository.delete(order);
     }
 
     public void handlePlaceOrder(User currentUser, HttpSession session, String receiverName, String receiverAddress,
@@ -54,7 +71,7 @@ public class OrderService {
                 }
 
                 order.setTotalPrice(totalPrice);
-                order = this.orderRepository.save(order);
+                order = handleSaveOrder(order);
 
                 for (CartDetail cd : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
@@ -75,5 +92,9 @@ public class OrderService {
             }
 
         }
+    }
+
+    public long countOrder() {
+        return this.orderRepository.count();
     }
 }

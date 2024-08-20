@@ -3,6 +3,7 @@ package com.dencooper.pnstore.service;
 import java.util.Optional;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.Cart;
@@ -47,28 +48,16 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
-    public Product handleUpdateProduct(Product product) {
-        Optional<Product> productOptional = this.productRepository.findById(product.getId());
-        if (productOptional.isPresent()) {
-            Product updatedProduct = productOptional.get();
-            updatedProduct.setName(product.getName());
-            updatedProduct.setPrice(product.getPrice());
-            updatedProduct.setDetailDesc(product.getDetailDesc());
-            updatedProduct.setShortDesc(product.getShortDesc());
-            updatedProduct.setFactory(product.getFactory());
-            updatedProduct.setTarget(product.getTarget());
-            updatedProduct.setQuantity(product.getQuantity());
-            updatedProduct.setSold(product.getSold());
-        }
-        return null;
-    }
-
     public void handleDeleteProductById(long id) {
         this.productRepository.deleteById(id);
     }
 
     public Cart fetchCartByUser(User user) {
         return this.cartRepository.findByUser(user);
+    }
+
+    public Page<Order> fetchAllOrders(Pageable pageable){
+        return this.
     }
 
     public CartDetail fetchCartDetailById(long id) {
@@ -140,6 +129,10 @@ public class ProductService {
                 this.cartDetailRepository.save(currentCartDetail);
             }
         }
+    }
+
+    public long countProduct() {
+        return this.productRepository.count();
     }
 
 }
