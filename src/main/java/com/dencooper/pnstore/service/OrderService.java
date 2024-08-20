@@ -31,6 +31,10 @@ public class OrderService {
         this.cartDetailRepository = cartDetailRepository;
     }
 
+    public List<Order> fetchAllOrdersByUser(User user) {
+        return this.orderRepository.findAllByUser(user);
+    }
+
     public void handlePlaceOrder(User currentUser, HttpSession session, String receiverName, String receiverAddress,
             String receiverPhone) {
         Cart cart = currentUser.getCart();

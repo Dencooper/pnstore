@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dencooper.pnstore.domain.Cart;
 import com.dencooper.pnstore.domain.CartDetail;
+import com.dencooper.pnstore.domain.Order;
 import com.dencooper.pnstore.domain.Product;
 import com.dencooper.pnstore.domain.User;
 import com.dencooper.pnstore.service.OrderService;
@@ -118,6 +119,16 @@ public class ShoppingController {
     @GetMapping("/thanks")
     public String getThankYouPage() {
         return "client/shopping/thanks";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        User currentUser = this.userService.fetchUserById(id);
+        List<Order> orders = this.orderService.fetchAllOrdersByUser(currentUser);
+        model.addAttribute("orders", orders);
+        return "client/shopping/orders";
     }
 
 }
