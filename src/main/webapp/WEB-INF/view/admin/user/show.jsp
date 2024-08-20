@@ -38,10 +38,10 @@
                                         <table class=" table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã</th>
+                                                    <th class="text-center align-middle">Mã</th>
                                                     <th>Email</th>
                                                     <th>Họ tên</th>
-                                                    <th>Vai Trò</th>
+                                                    <th class="text-center">Vai Trò</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
@@ -49,10 +49,10 @@
                                                 <c:forEach var="user" items="${users}">
 
                                                     <tr>
-                                                        <th>${user.id}</th>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.fullName}</td>
-                                                        <td>${user.role.name}</td>
+                                                        <th class="text-center align-middle">${user.id}</th>
+                                                        <td class="align-middle">${user.email}</td>
+                                                        <td class="align-middle">${user.fullName}</td>
+                                                        <td class="text-center align-middle">${user.role.name}</td>
                                                         <td>
                                                             <a href="/admin/user/${user.id}"
                                                                 class="btn btn-success">Xem</a>
@@ -72,7 +72,31 @@
                                 </div>
 
                             </div>
+                            <nav aria-label="Page navigation example ">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link ${1 eq  currentPage ? 'disabled' : ''}"
+                                            href="/admin/user?page=${currentPage-1}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
 
+                                    <c:forEach varStatus="loop" begin="0" end="${totalPages - 1}">
+                                        <li class="page-item">
+                                            <a class="page-link ${(loop.index + 1) eq  currentPage ? 'active' : ''}"
+                                                href="/admin/user?page=${loop.index+1}">${loop.index+1}</a>
+                                        </li>
+                                        <p>
+                                    </c:forEach>
+
+                                    <li class="page-item">
+                                        <a class="page-link ${totalPages eq  currentPage ? 'disabled' : ''}"
+                                            href="/admin/user?page=${currentPage+1}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </main>
                     <jsp:include page="../layout/footer.jsp" />

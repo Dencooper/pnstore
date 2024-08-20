@@ -126,7 +126,7 @@ public class ShoppingController {
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = this.userService.fetchUserById(id);
-        List<Order> orders = this.orderService.fetchAllOrdersByUser(currentUser);
+        List<Order> orders = currentUser.getOrders();
         model.addAttribute("orders", orders);
         return "client/shopping/orders";
     }

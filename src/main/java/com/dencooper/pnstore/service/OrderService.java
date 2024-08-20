@@ -3,6 +3,8 @@ package com.dencooper.pnstore.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.Cart;
@@ -40,12 +42,12 @@ public class OrderService {
         return null;
     }
 
-    public Order handleSaveOrder(Order order) {
-        return this.orderRepository.save(order);
+    public Page<Order> fetchAllOrders(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
     }
 
-    public List<Order> fetchAllOrdersByUser(User user) {
-        return this.orderRepository.findAllByUser(user);
+    public Order handleSaveOrder(Order order) {
+        return this.orderRepository.save(order);
     }
 
     public void handelDeleteOrder(Order order) {

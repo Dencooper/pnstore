@@ -3,6 +3,7 @@ package com.dencooper.pnstore.service;
 import java.util.Optional;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -48,16 +49,16 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
+    public Page<Product> fetchAllProducts(Pageable pageable) {
+        return this.productRepository.findAll(pageable);
+    }
+
     public void handleDeleteProductById(long id) {
         this.productRepository.deleteById(id);
     }
 
     public Cart fetchCartByUser(User user) {
         return this.cartRepository.findByUser(user);
-    }
-
-    public Page<Order> fetchAllOrders(Pageable pageable){
-        return this.
     }
 
     public CartDetail fetchCartDetailById(long id) {

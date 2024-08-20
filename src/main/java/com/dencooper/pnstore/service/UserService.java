@@ -3,6 +3,8 @@ package com.dencooper.pnstore.service;
 import java.util.Optional;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.Role;
@@ -33,8 +35,8 @@ public class UserService {
         return null;
     }
 
-    public List<User> fetchAllUsers() {
-        return this.userRepository.findAll();
+    public Page<User> fetchAllUsers(Pageable pageable) {
+        return this.userRepository.findAll(pageable);
     }
 
     public void handleDeleteUserById(long id) {
@@ -58,5 +60,9 @@ public class UserService {
         user.setEmail(registerDTO.getEmail());
         user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         return user;
+    }
+
+    public long countUser() {
+        return this.userRepository.count();
     }
 }

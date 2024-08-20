@@ -1,8 +1,12 @@
 package com.dencooper.pnstore.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,9 +35,22 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getProductPage(Model model) {
-        List<Product> products = this.productService.fetchAllProducts();
-        model.addAttribute("products", products);
+    public String getProductPage(Model model,
+            @RequestParam("page") Optional<String> pageOptional) {
+
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {
+        }
+        Pageable pageable = PageRequest.of(page - 1, 2);
+        Page<Product> pageProducts = this.productService.fetchAllProducts(pageable);
+        List<Product> listProducts = pageProducts.getContent();
+        model.addAttribute("products", listProducts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageProducts.getTotalPages());
         return "admin/product/show";
     }
 
