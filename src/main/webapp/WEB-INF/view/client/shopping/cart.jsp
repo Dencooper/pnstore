@@ -169,7 +169,7 @@
                                                     <fmt:formatNumber type="number" value="${totalPrice}" /> đ
                                                 </p>
                                             </div>
-                                            <form:form action="/confirm-checkout" method="post" modelAttribute="cart">
+                                            <form:form action="/confirm-payment" method="post" modelAttribute="cart">
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                     value="${_csrf.token}" />
                                                 <div style="display: none;">
