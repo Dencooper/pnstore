@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import com.dencooper.pnstore.domain.Product;
 import com.dencooper.pnstore.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -42,6 +43,13 @@ public class LaptopController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pageProduct.getTotalPages());
         return "client/product/show";
+    }
+
+    @GetMapping("/product/{id}")
+    public String getProductDetailPage(Model model, @PathVariable("id") long id) {
+        Product product = this.productService.fetchProductById(id);
+        model.addAttribute("product", product);
+        return "client/product/detail";
     }
 
 }
