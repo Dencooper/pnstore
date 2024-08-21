@@ -1,20 +1,24 @@
 package com.dencooper.pnstore.service;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.dencooper.pnstore.domain.Cart;
 import com.dencooper.pnstore.domain.CartDetail;
 import com.dencooper.pnstore.domain.Product;
 import com.dencooper.pnstore.domain.User;
+import com.dencooper.pnstore.domain.dto.ProductCriteriaDTO;
 import com.dencooper.pnstore.repository.CartDetailRepository;
 import com.dencooper.pnstore.repository.CartRepository;
 import com.dencooper.pnstore.repository.ProductRepository;
 import com.dencooper.pnstore.repository.UserRepository;
+import com.dencooper.pnstore.service.specification.ProductSpecification;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -132,6 +136,67 @@ public class ProductService {
 
     public long countProduct() {
         return this.productRepository.count();
+    }
+
+    public Specification<Product> buildPriceSpecification(List<String> price) {
+        Specification<Product> combinedSpec = Specification.where(null);
+        for (String p : price) {
+            double min = 0;
+            double max = 0;
+
+            switch (p) {
+                case "duoi-10-trieu":
+                    min = 100000;
+                    max = 10000000;
+                    break;
+                case "10-15-trieu":
+                    min = 10000000;
+                    max = 15000000;
+                    break;
+                case "15-20-trieu":
+                    min = 15000000;
+                    max = 20000000;
+                    break;
+                case "tren-20-trieu":
+                    min = 20000000;
+                    max = 200000000;
+                    break;
+            }
+
+            if (min != 0 && max != 0) {
+                Specification<Product> rangeSpec = ProductSpecification.matchMultiplePrice(min, max);
+                combinedSpec = combinedSpec.or(rangeSpec);
+            }
+        }
+        return combinedSpec;
+    }
+
+    public Page<Product> fetchProductsWithSpec(Pageable page, ProductCriteriaDTO productCriteriaDTO) {
+        if (productCriteriaDTO.getPrice() == null
+                && productCriteriaDTO.getFactory() == null
+                && productCriteriaDTO.getTarget() == null) {
+            return this.productRepository.findAll(page);
+        }
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> currentSpec = ProductSpecification
+                    .matchListTarget(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> currentSpec = ProductSpecification
+                    .matchListFactory(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            Specification<Product> currentSpec = this.buildPriceSpecification(productCriteriaDTO.getPrice().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+
+        return this.productRepository.findAll(combinedSpec, page);
     }
 
 }
