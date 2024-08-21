@@ -303,6 +303,52 @@
         $(`input[type="radio"][name="radio-sort"][value="${sort}"]`).prop('checked', true);
     }
 
+    function isLogin() {
+        const navElement = $("#navbarCollapse");
+        const childLogin = navElement.find('a.a-login');
+        if (childLogin.length > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    $('.btnAddToCartHomepage').click(function (event) {
+        event.preventDefault();
+        if (!isLogin()) {
+            $.toast({
+                heading: 'Lỗi thao tác',
+                text: 'Bạn cần đăng nhập tài khoản',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return;
+        }
+        $.toast({
+            heading: 'Giỏ hàng',
+            text: 'Thêm sản phẩm vào giỏ hàng thành công',
+            position: 'top-right',
+
+        })
+    });
+
+    $('.btnAddToCartDetail').click(function (event) {
+        event.preventDefault();
+        if (!isLogin()) {
+            $.toast({
+                heading: 'Lỗi thao tác',
+                text: 'Bạn cần đăng nhập tài khoản',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return;
+        }
+        $.toast({
+            heading: 'Giỏ hàng',
+            text: 'Thêm sản phẩm vào giỏ hàng thành công',
+            position: 'top-right',
+
+        })
+    });
 })(jQuery);
 
 

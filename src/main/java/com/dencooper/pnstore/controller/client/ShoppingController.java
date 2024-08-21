@@ -44,6 +44,17 @@ public class ShoppingController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/add-product-from-product-detail")
+    public String addProductToCartFromProductDetail(HttpServletRequest request,
+            @RequestParam("id") long id,
+            @RequestParam("quantity") long quantity) {
+        HttpSession session = request.getSession(false);
+        User user = this.userService.fetchUserById((long) session.getAttribute("id"));
+        Product product = this.productService.fetchProductById(id);
+        this.productService.handleAddProductToCart(user, product, session, quantity);
+        return "redirect:/cart";
+    }
+
     @GetMapping("/cart")
     public String getCartPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);

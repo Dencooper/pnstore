@@ -29,7 +29,7 @@ public class LaptopController {
         this.productService = productService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/product")
     public String getProductPage(Model model,
             ProductCriteriaDTO productCriteriaDTO,
             HttpServletRequest request) {

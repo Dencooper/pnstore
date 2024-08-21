@@ -34,6 +34,8 @@
 
                     <!-- Template Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+                        rel="stylesheet">
                 </head>
 
                 <body>
@@ -117,7 +119,7 @@
                                                     </div>
                                                 </div>
                                                 <button
-                                                    class="btn border border-secondary rounded-pill px-4 mt-1 mb-4 text-primary"><i
+                                                    class="btn btnAddToCartDetail border border-secondary rounded-pill px-4 mt-1 mb-4 text-primary"><i
                                                         class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào
                                                     giỏ</button>
                                             </form>
@@ -209,6 +211,8 @@
 
                     <!-- Template Javascript -->
                     <script src="/client/js/main.js"></script>
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
                 </body>
 
                 </html>
