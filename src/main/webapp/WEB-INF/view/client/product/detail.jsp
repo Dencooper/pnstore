@@ -36,6 +36,9 @@
                     <link href="/client/css/style.css" rel="stylesheet">
                     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
                         rel="stylesheet">
+                    <meta name="_csrf" content="${_csrf.token}" />
+                    <meta name="_csrf_header" content="${_csrf.headerName}" />
+
                 </head>
 
                 <body>
@@ -94,34 +97,18 @@
                                                 </div>
                                                 <input type="text"
                                                     class="form-control form-control-sm text-center border-0" value="1"
-                                                    data-cart-detail-index="0">
+                                                    data-cart-detail-index="0" id="cartDetails0.quantity">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form action="/add-product-from-product-detail" method="post">
-                                                <input type="hidden" name="${_csrf.parameterName}"
-                                                    value="${_csrf.token}" />
-                                                <div style="display: none;">
-                                                    <div class="mb-3">
-                                                        <div class="form-group">
-                                                            <label>Mã:</label>
-                                                            <input class="form-control" type="text"
-                                                                value="${product.id}" name="id" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Số lượng:</label>
-                                                            <input class="form-control" type="text" name="quantity"
-                                                                id="cartDetails0.quantity" value="1" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button
-                                                    class="btn btnAddToCartDetail border border-secondary rounded-pill px-4 mt-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào
-                                                    giỏ</button>
+
+                                            <button data-product-id="${product.id}"
+                                                class="btn btnAddToCartDetail border border-secondary rounded-pill px-4 mt-1 mb-4 text-primary"><i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào
+                                                giỏ</button>
                                             </form>
                                         </div>
                                         <div class="col-lg-12">

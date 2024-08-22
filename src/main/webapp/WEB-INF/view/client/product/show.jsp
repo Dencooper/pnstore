@@ -39,6 +39,8 @@
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
                     rel="stylesheet">
+                <meta name="_csrf" content="${_csrf.token}" />
+                <meta name="_csrf_header" content="${_csrf.headerName}" />
 
                 <style>
                     .page-link.disabled {
@@ -229,17 +231,12 @@
                                                                                 <fmt:formatNumber type="number"
                                                                                     value="${product.price}" /> đ
                                                                             </p>
-                                                                            <form
-                                                                                action="/add-product-to-cart/${product.id}"
-                                                                                method="post">
-                                                                                <input type="hidden"
-                                                                                    name="${_csrf.parameterName}"
-                                                                                    value="${_csrf.token}" />
-                                                                                <button
-                                                                                    class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                                        class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                                    Thêm vào giỏ</button>
-                                                                            </form>
+
+                                                                            <button data-product-id="${product.id}"
+                                                                                class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                                                    class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                                Thêm vào giỏ</button>
+
 
                                                                         </div>
                                                                     </div>
@@ -257,7 +254,7 @@
                                         <div class="pagination d-flex justify-content-center mt-5">
                                             <li class="page-item">
                                                 <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                    href="/products?page=${currentPage - 1}${queryString}"
+                                                    href="/product?page=${currentPage - 1}${queryString}"
                                                     aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
@@ -265,14 +262,14 @@
                                             <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
                                                 <li class="page-item">
                                                     <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                                                        href="/products?page=${loop.index + 1}${queryString}">
+                                                        href="/product?page=${loop.index + 1}${queryString}">
                                                         ${loop.index + 1}
                                                     </a>
                                                 </li>
                                             </c:forEach>
                                             <li class="page-item">
                                                 <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                    href="/products?page=${currentPage + 1}${queryString}"
+                                                    href="/product?page=${currentPage + 1}${queryString}"
                                                     aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>

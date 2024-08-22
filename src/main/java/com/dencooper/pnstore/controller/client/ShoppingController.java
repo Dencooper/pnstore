@@ -3,12 +3,14 @@ package com.dencooper.pnstore.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dencooper.pnstore.domain.Cart;
@@ -22,6 +24,15 @@ import com.dencooper.pnstore.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+class CartRequest {
+    private long quantity;
+    private long productId;
+}
 
 @Controller
 public class ShoppingController {
@@ -35,24 +46,16 @@ public class ShoppingController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/add-product-to-cart/{id}")
-    public String addProductToCart(@PathVariable("id") long productId, HttpServletRequest request) {
+    @PostMapping("/add-product-to-cart")
+    public ResponseEntity<Integer> addProductToCart(@RequestBody() CartRequest cartRequest,
+            HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = this.userService.fetchUserById((long) session.getAttribute("id"));
-        Product product = this.productService.fetchProductById(productId);
-        this.productService.handleAddProductToCart(user, product, session, 1);
-        return "redirect:/cart";
-    }
+        Product product = this.productService.fetchProductById(cartRequest.getProductId());
+        this.productService.handleAddProductToCart(user, product, session, cartRequest.getQuantity());
+        int sum = (int) session.getAttribute("sum");
 
-    @PostMapping("/add-product-from-product-detail")
-    public String addProductToCartFromProductDetail(HttpServletRequest request,
-            @RequestParam("id") long id,
-            @RequestParam("quantity") long quantity) {
-        HttpSession session = request.getSession(false);
-        User user = this.userService.fetchUserById((long) session.getAttribute("id"));
-        Product product = this.productService.fetchProductById(id);
-        this.productService.handleAddProductToCart(user, product, session, quantity);
-        return "redirect:/cart";
+        return ResponseEntity.ok().body(sum);
     }
 
     @GetMapping("/cart")
@@ -81,7 +84,7 @@ public class ShoppingController {
         if (cartDetail != null) {
             this.productService.handleDeleteCartDetail(cartDetail, session);
         }
-        return "redirect:/";
+        return "redirect:/cart";
     }
 
     @PostMapping("/confirm-payment")

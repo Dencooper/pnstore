@@ -43,14 +43,14 @@ public class LaptopController {
             // TODO: handle exception
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 2);
+        Pageable pageable = PageRequest.of(page - 1, 4);
 
         if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
             String sort = productCriteriaDTO.getSort().get();
             if (sort.equals("gia-giam-dan")) {
-                pageable = PageRequest.of(page - 1, 2, Sort.by(Product_.PRICE).descending());
+                pageable = PageRequest.of(page - 1, 4, Sort.by(Product_.PRICE).descending());
             } else if (sort.equals("gia-tang-dan")) {
-                pageable = PageRequest.of(page - 1, 2, Sort.by(Product_.PRICE).ascending());
+                pageable = PageRequest.of(page - 1, 4, Sort.by(Product_.PRICE).ascending());
             }
         }
 

@@ -65,7 +65,7 @@
 
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/register">Have no a account? Sign Up</a>
+                                        <div class="small">Bạn chưa có tài khoản ? <a href="/register">Đăng ký</a>
                                         </div>
                                     </div>
                                 </div>

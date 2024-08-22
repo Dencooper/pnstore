@@ -313,7 +313,7 @@
     }
 
     $('.btnAddToCartHomepage').click(function (event) {
-        event.preventDefault();
+        // event.preventDefault();
         if (!isLogin()) {
             $.toast({
                 heading: 'Lỗi thao tác',
@@ -323,12 +323,36 @@
             })
             return;
         }
-        $.toast({
-            heading: 'Giỏ hàng',
-            text: 'Thêm sản phẩm vào giỏ hàng thành công',
-            position: 'top-right',
+        const productId = $(this).attr('data-product-id');
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
 
-        })
+        $.ajax({
+            url: `${window.location.origin}/add-product-to-cart`,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            type: "POST",
+            data: JSON.stringify({ quantity: 1, productId: productId }),
+            contentType: "application/json",
+
+            success: function (response) {
+                const sum = +response;
+                $("#sumCart").text(sum)
+                $.toast({
+                    heading: 'Giỏ hàng',
+                    text: 'Đã thêm vào giỏ hàng',
+                    position: 'top-center',
+
+                })
+
+            },
+            error: function (response) {
+                alert("Đã có lỗi xảy ra !")
+                console.log("error: ", response);
+            }
+
+        });
     });
 
     $('.btnAddToCartDetail').click(function (event) {
@@ -342,12 +366,37 @@
             })
             return;
         }
-        $.toast({
-            heading: 'Giỏ hàng',
-            text: 'Thêm sản phẩm vào giỏ hàng thành công',
-            position: 'top-right',
 
-        })
+        const productId = $(this).attr('data-product-id');
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        const quantity = $("#cartDetails0\\.quantity").val();
+        $.ajax({
+            url: `${window.location.origin}/add-product-to-cart`,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            type: "POST",
+            data: JSON.stringify({ quantity: quantity, productId: productId }),
+            contentType: "application/json",
+
+            success: function (response) {
+                const sum = +response;
+                $("#sumCart").text(sum)
+                $.toast({
+                    heading: 'Giỏ hàng',
+                    text: 'Đã thêm vào giỏ hàng',
+                    position: 'top-center',
+
+                })
+
+            },
+            error: function (response) {
+                alert("Đã có lỗi xảy ra !");
+                console.log("error: ", response);
+            }
+
+        });
     });
 })(jQuery);
 

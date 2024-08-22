@@ -11,6 +11,7 @@ import com.dencooper.pnstore.domain.Cart;
 import com.dencooper.pnstore.domain.CartDetail;
 import com.dencooper.pnstore.domain.Order;
 import com.dencooper.pnstore.domain.OrderDetail;
+import com.dencooper.pnstore.domain.Product;
 import com.dencooper.pnstore.domain.User;
 import com.dencooper.pnstore.repository.CartDetailRepository;
 import com.dencooper.pnstore.repository.CartRepository;
@@ -81,6 +82,9 @@ public class OrderService {
                 }
 
                 for (CartDetail cd : cartDetails) {
+                    Product product = cd.getProduct();
+                    product.setQuantity(product.getQuantity() - cd.getQuantity());
+                    product.setSold(product.getSold() + cd.getQuantity());
                     this.cartDetailRepository.deleteById(cd.getId());
                 }
 

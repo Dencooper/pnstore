@@ -37,6 +37,9 @@
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
                     rel="stylesheet">
 
+                <meta name="_csrf" content="${_csrf.token}" />
+                <meta name="_csrf_header" content="${_csrf.headerName}" />
+
             </head>
 
             <body>
@@ -100,16 +103,10 @@
                                                                         <fmt:formatNumber type="number"
                                                                             value="${product.price}" /> đ
                                                                     </p>
-                                                                    <form action="/add-product-to-cart/${product.id}"
-                                                                        method="post">
-                                                                        <input type="hidden"
-                                                                            name="${_csrf.parameterName}"
-                                                                            value="${_csrf.token}" />
-                                                                        <button
-                                                                            class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                            Thêm vào giỏ</button>
-                                                                    </form>
+                                                                    <button data-product-id="${product.id}"
+                                                                        class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                        Thêm vào giỏ</button>
                                                                 </div>
                                                             </div>
                                                         </div>
