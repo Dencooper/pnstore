@@ -75,6 +75,11 @@ public class LaptopController {
     @GetMapping("/product/{id}")
     public String getProductDetailPage(Model model, @PathVariable("id") long id) {
         Product product = this.productService.fetchProductById(id);
+        model.addAttribute("countApple", this.productService.countProductByFatory("APPLE"));
+        model.addAttribute("countDell", this.productService.countProductByFatory("DELL"));
+        model.addAttribute("countAsus", this.productService.countProductByFatory("ASUS"));
+        model.addAttribute("countAcer", this.productService.countProductByFatory("ACER"));
+        model.addAttribute("countLenovo", this.productService.countProductByFatory("LENOVO"));
         model.addAttribute("product", product);
         return "client/product/detail";
     }

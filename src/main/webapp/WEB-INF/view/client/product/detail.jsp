@@ -136,37 +136,37 @@
                                         <div class="col-lg-12">
 
                                             <div class="mb-4">
-                                                <h4>Categories</h4>
+                                                <h4>Danh mục</h4>
                                                 <ul class="list-unstyled fruite-categorie">
                                                     <li>
                                                         <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Apple</a>
-                                                            <span>(3)</span>
+                                                            <a href="#">Apple</a>
+                                                            <span>(${countApple})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>
+                                                            <a href="#">
                                                                 Dell</a>
-                                                            <span>(5)</span>
+                                                            <span>(${countDell})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Asus</a>
-                                                            <span>(2)</span>
+                                                            <a href="#">Asus</a>
+                                                            <span>(${countAsus})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Acer</a>
-                                                            <span>(8)</span>
+                                                            <a href="#">Acer</a>
+                                                            <span>(${countAcer})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Lenovo</a>
-                                                            <span>(5)</span>
+                                                            <a href="#">Lenovo</a>
+                                                            <span>(${countLenovo})</span>
                                                         </div>
                                                     </li>
                                                 </ul>

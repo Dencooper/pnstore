@@ -15,8 +15,8 @@
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
-            <body class="bg-primary">
-                <div id="layoutAuthentication">
+            <body style="background-color: #81c408;">
+                <div id=" layoutAuthentication">
                     <div id="layoutAuthentication_content">
                         <main>
                             <div class="container">

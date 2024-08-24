@@ -134,10 +134,6 @@ public class ProductService {
         }
     }
 
-    public long countProduct() {
-        return this.productRepository.count();
-    }
-
     public Specification<Product> buildPriceSpecification(List<String> price) {
         Specification<Product> combinedSpec = Specification.where(null);
         for (String p : price) {
@@ -197,6 +193,14 @@ public class ProductService {
         }
 
         return this.productRepository.findAll(combinedSpec, page);
+    }
+
+    public long countProduct() {
+        return this.productRepository.count();
+    }
+
+    public long countProductByFatory(String factory) {
+        return this.productRepository.countByFactory(factory);
     }
 
 }

@@ -14,4 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAll(Specification<Product> specification, Pageable pageable);
 
+    long countByFactory(String factory);
 }

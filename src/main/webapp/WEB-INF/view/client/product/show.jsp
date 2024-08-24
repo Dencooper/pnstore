@@ -205,7 +205,7 @@
                                                     <div class="row g-4">
                                                         <c:forEach var="product" items="${products}">
                                                             <div class="col-md-6 col-lg-4 mb-3">
-                                                                <div class="rounded position-relative fruite-item"
+                                                                <div class="rounded position-relative fruite-item border border-secondary rounded-bottom"
                                                                     style="max-height: 380px;">
                                                                     <div class="fruite-img">
                                                                         <img src="/images/product/${product.images[0]}"
@@ -215,8 +215,7 @@
                                                                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                                         style="top: 10px; left: 10px;">
                                                                         ${product.factory}</div>
-                                                                    <div
-                                                                        class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                                    <div class="p-4">
                                                                         <h4 style="font-size: 15px;">
                                                                             <a href="/product/${product.id}">
                                                                                 ${product.name}

@@ -15,7 +15,7 @@
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
-            <body class="bg-primary">
+            <body style="background-color: #81c408;">
                 <div id="layoutAuthentication">
                     <div id="layoutAuthentication_content">
                         <main>
@@ -24,7 +24,7 @@
                                     <div class="col-lg-4">
                                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                                             <div class="card-header">
-                                                <h3 class="text-center font-weight-light my-4">Đăng nhập</h3>
+                                                <h3 class="text-center font-weight-light my-4 ">Đăng nhập</h3>
                                             </div>
                                             <div class="card-body">
                                                 <form method="post" action="/login">
@@ -64,7 +64,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="card-footer text-center py-3">
+                                    <div class="card-footer text-center py-3 ">
                                         <div class="small">Bạn chưa có tài khoản ? <a href="/register">Đăng ký</a>
                                         </div>
                                     </div>
